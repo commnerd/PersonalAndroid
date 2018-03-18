@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ListView
 import android.widget.TextView
 import net.michaeljmiller.R
 import net.michaeljmiller.models.food.Restaurant
@@ -32,8 +34,17 @@ class RestaurantArrayAdapter : ArrayAdapter<Restaurant> {
 
         val currentRestaurant = this.objects.get(position)
 
-        val release = listItem!!.findViewById(R.id.line_manage_label) as TextView
-        release.setText(currentRestaurant.name)
+        val label = listItem!!.findViewById(R.id.line_manage_label) as TextView
+        label.setText(currentRestaurant.name)
+
+        listItem!!.findViewById<Button>(R.id.line_manage_button_delete).setOnClickListener {
+            view -> (view.parent.parent as ListView).performItemClick(view, position, 0)
+        }
+
+        listItem!!.findViewById<Button>(R.id.line_manage_button_edit).setOnClickListener(View.OnClickListener {
+            this.objects.drop(position)
+            (it.parent.parent as ListView).performItemClick(it, position, 0)
+        })
 
         return listItem
     }

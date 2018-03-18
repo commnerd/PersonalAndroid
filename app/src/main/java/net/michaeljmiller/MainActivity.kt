@@ -14,9 +14,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val values = arrayOf(
-                "Food",
-                "Messages",
-                "Resume"
+                "Food"
+                // "Messages",
+                // "Resume"
         )
 
         val listView = findViewById<ListView>(R.id.main_list_view)
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigate(dest: String) {
         when(dest) {
-            "Food" -> startActivity(Intent(this, net.michaeljmiller.food.RestaurantsActivity::class.java))
+            "Food" -> startActivity(Intent(this, net.michaeljmiller.FoodActivity::class.java))
         }
     }
 }
