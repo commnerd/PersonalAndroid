@@ -9,6 +9,9 @@ import net.michaeljmiller.notifications.NotificationHelper
 import okhttp3.*
 import java.io.IOException
 import org.json.JSONObject
+import android.app.PendingIntent
+
+
 
 
 
@@ -53,6 +56,8 @@ class MainActivity : AppCompatActivity() {
                 .url("https://michaeljmiller.net/api/daily_reminder")
                 .build()
 
+        val context = this
+
         client.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace();
@@ -60,8 +65,24 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
+                    val notifyIntent = Intent(context, DailyReminderActivity::class.java)
                     val json = JSONObject(response.body()!!.string())
-                    var notification = noti!!.buildNotification(json.getString("reference"), json.getString("reminder"))
+                    val reference = json.getString("reference")
+                    val reminder = json.getString("reminder")
+
+                    notifyIntent.putExtra("reference", reference)
+                    notifyIntent.putExtra("reminder", reminder)
+
+                    // Set the Activity to start in a new, empty task
+                    notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+
+                    // Create the PendingIntent
+                    val notifyPendingIntent = PendingIntent.getActivity(
+                            context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+
+                    var notification = noti!!.buildNotification(reference, reminder)
+                    notification.setContentIntent(notifyPendingIntent)
                     noti!!.notify(notification)
                 }
             }
