@@ -1,14 +1,16 @@
 package net.michaeljmiller
 
-import android.app.NotificationChannel
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.NotificationCompat
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.TextView
 import net.michaeljmiller.notifications.NotificationHelper
+import okhttp3.*
+import java.io.IOException
+import org.json.JSONObject
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,8 +46,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun message() {
-        var notification = noti!!.buildNotification("test", "This is a test notification")
-        noti!!.notify(notification);
+        // avoid creating several instances, should be singleon
+        val client = OkHttpClient()
 
+        val request = Request.Builder()
+                .url("https://michaeljmiller.net/api/daily_reminder")
+                .build()
+
+        client.newCall(request).enqueue(object: Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace();
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    val json = JSONObject(response.body()!!.string())
+                    var notification = noti!!.buildNotification(json.getString("reference"), json.getString("reminder"))
+                    noti!!.notify(notification)
+                }
+            }
+        })
     }
 }
