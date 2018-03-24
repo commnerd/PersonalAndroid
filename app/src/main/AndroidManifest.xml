@@ -36,10 +36,12 @@
             android:name=".food.OrderActivity"
             android:label="@string/title_activity_order"
             android:theme="@style/AppTheme.NoActionBar" />
-        <service
-            android:name=".services.DailyReminderService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <receiver android:name=".events.EventInitializer">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".events.DailyReminder" />
         <activity
             android:name=".DailyReminderActivity"
             android:label="@string/title_activity_daily_reminder"

@@ -1,12 +1,11 @@
 package net.michaeljmiller
 
-import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 
 import kotlinx.android.synthetic.main.activity_daily_reminder.*
 import kotlinx.android.synthetic.main.content_daily_reminder.*
-import net.michaeljmiller.R.styleable.Toolbar
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+
 
 class DailyReminderActivity : AppCompatActivity() {
 
