@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="net.michaeljmiller">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -36,19 +41,25 @@
             android:name=".food.OrderActivity"
             android:label="@string/title_activity_order"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <receiver android:name=".events.EventInitializer">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver android:name=".events.DailyReminder" />
+
         <activity
             android:name=".DailyReminderActivity"
+            android:excludeFromRecents="true"
             android:label="@string/title_activity_daily_reminder"
-            android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTask"
             android:taskAffinity=""
-            android:excludeFromRecents="true" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AuthenticationActivity"
+            android:label="@string/title_activity_authentication"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
