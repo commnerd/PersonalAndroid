@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="net.michaeljmiller">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.ACCOUNT_MANAGER"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -17,13 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".AuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity" />
         <activity
             android:name=".FoodActivity"
             android:label="@string/title_activity_food"
@@ -32,7 +29,10 @@
             android:name=".food.RestaurantsActivity"
             android:label="@string/title_activity_restaurants"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".food.RestaurantActivity" />
+        <activity
+            android:name=".food.RestaurantActivity"
+            android:label="@string/title_activity_restaurant"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".food.OrdersActivity"
             android:label="@string/title_activity_orders"
@@ -47,8 +47,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".events.DailyReminder" />
-
+        <receiver android:name=".events.DailyReminderBroadcastReceiver" />
         <activity
             android:name=".DailyReminderActivity"
             android:excludeFromRecents="true"
@@ -56,10 +55,6 @@
             android:launchMode="singleTask"
             android:taskAffinity=""
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".AuthenticationActivity"
-            android:label="@string/title_activity_authentication"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

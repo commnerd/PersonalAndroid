@@ -2,6 +2,7 @@
     <string name="app_name">Michael J. Miller</string>
     <string name="title_activity_food">FoodActivity</string>
     <string name="title_activity_restaurants">Restaurants</string>
+    <string name="title_activity_restaurant">Restaurant</string>
     <string name="food_button_manage">Manage</string>
     <string name="line_manage_edit">Edit</string>
     <string name="line_manage_delete">Delete</string>

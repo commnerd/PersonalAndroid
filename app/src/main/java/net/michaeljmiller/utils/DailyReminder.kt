@@ -1,21 +1,26 @@
-package net.michaeljmiller.events
+package net.michaeljmiller.utils
 
-import net.michaeljmiller.notifications.NotificationHelper
-import net.michaeljmiller.DailyReminderActivity
-import android.content.BroadcastReceiver
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import net.michaeljmiller.DailyReminderActivity
+import net.michaeljmiller.notifications.NotificationHelper
+import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
-import okhttp3.*
 
 /**
- * Created by commnerd on 3/24/18.
+ * Created by commnerd on 3/25/18.
  */
-class DailyReminder:BroadcastReceiver() {
+class DailyReminder: Runnable {
 
-    override fun onReceive(context: Context?, intent: Intent?) {
+    private val context: Context
+
+    constructor(context: Context) {
+        this.context = context
+    }
+
+    override fun run() {
         // avoid creating several instances, should be singleon
         val client = OkHttpClient()
 
@@ -23,7 +28,7 @@ class DailyReminder:BroadcastReceiver() {
                 .url("https://michaeljmiller.net/api/daily_reminder")
                 .build()
 
-        val noti = NotificationHelper(context!!)
+        val noti = NotificationHelper(context)
 
         client.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -55,5 +60,4 @@ class DailyReminder:BroadcastReceiver() {
             }
         })
     }
-
 }

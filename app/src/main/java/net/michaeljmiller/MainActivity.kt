@@ -1,16 +1,12 @@
 package net.michaeljmiller
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
-import net.michaeljmiller.events.DailyReminder
-import java.util.*
+import net.michaeljmiller.utils.DailyReminder
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val values = arrayOf(
+                "Reminder",
                 "Food"
                 // "Messages",
                 // "Resume"
@@ -37,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigate(dest: String) {
         when(dest) {
+            "Reminder" -> DailyReminder(this).run()
             "Food" -> startActivity(Intent(this, net.michaeljmiller.FoodActivity::class.java))
         }
     }
