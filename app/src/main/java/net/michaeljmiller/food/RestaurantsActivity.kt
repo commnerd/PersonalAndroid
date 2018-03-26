@@ -42,7 +42,7 @@ class RestaurantsActivity : AppCompatActivity() {
     }
 
     fun deleteRestaurant(position: Int) {
-        android.util.Log.i("deleted", "THE SIZE: " + restaurants.size.toString())
+        android.util.Log.i("deleted", position.toString() + ": THE SIZE: " + restaurants.size.toString())
         listView!!.invalidateViews()
     }
 }

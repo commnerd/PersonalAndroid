@@ -18,7 +18,7 @@ class FoodActivity : AppCompatActivity() {
 
         val manageButton: Button = findViewById<Button>(R.id.food_button_manage)
         manageButton.setOnClickListener({
-            view -> startActivity(Intent(this, RestaurantsActivity::class.java))
+            _ -> startActivity(Intent(this, RestaurantsActivity::class.java))
         })
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

@@ -28,11 +28,13 @@ class OrderArrayAdapter : ArrayAdapter<Restaurant> {
 
     override fun getView(position: Int, convertView: View, parent: ViewGroup?): View {
         var listItem = convertView
+        /*
         if (listItem == null)
             listItem = LayoutInflater.from(context).inflate(this.textViewResourceId, parent, false)
 
-        val currentRestaurant = this.objects.get(position)
 
+        val currentRestaurant = this.objects.get(position)
+        */
         return listItem
     }
 }

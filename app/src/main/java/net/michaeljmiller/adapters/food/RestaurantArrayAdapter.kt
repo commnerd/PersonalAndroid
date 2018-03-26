@@ -37,11 +37,11 @@ class RestaurantArrayAdapter : ArrayAdapter<Restaurant> {
         val label = listItem!!.findViewById(R.id.line_manage_label) as TextView
         label.setText(currentRestaurant.name)
 
-        listItem!!.findViewById<Button>(R.id.line_manage_button_delete).setOnClickListener {
+        listItem.findViewById<Button>(R.id.line_manage_button_delete).setOnClickListener {
             view -> (view.parent.parent as ListView).performItemClick(view, position, 0)
         }
 
-        listItem!!.findViewById<Button>(R.id.line_manage_button_edit).setOnClickListener(View.OnClickListener {
+        listItem.findViewById<Button>(R.id.line_manage_button_edit).setOnClickListener(View.OnClickListener {
             this.objects.drop(position)
             (it.parent.parent as ListView).performItemClick(it, position, 0)
         })
