@@ -21,7 +21,7 @@ android {
         }
 
         debug {
-            applicationIdSuffix ".testing"
+            debuggable true
         }
     }
 }
