@@ -35,7 +35,7 @@ class RestaurantArrayAdapter : ArrayAdapter<Restaurant> {
         val currentRestaurant = this.objects.get(position)
 
         val label = listItem!!.findViewById(R.id.line_manage_label) as TextView
-        label.setText(currentRestaurant.name)
+        label.text = currentRestaurant.name
 
         listItem.findViewById<Button>(R.id.line_manage_button_delete).setOnClickListener {
             view -> (view.parent.parent as ListView).performItemClick(view, position, 0)

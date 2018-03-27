@@ -38,4 +38,9 @@ class MainActivity : AppCompatActivity() {
             "Food" -> startActivity(Intent(this, net.michaeljmiller.FoodActivity::class.java))
         }
     }
+
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+        finish()
+    }
 }

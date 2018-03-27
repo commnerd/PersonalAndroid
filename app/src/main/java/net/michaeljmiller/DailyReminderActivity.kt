@@ -14,8 +14,8 @@ class DailyReminderActivity : AppCompatActivity() {
         setContentView(R.layout.activity_daily_reminder)
         setSupportActionBar(toolbar)
 
-        val reference = getIntent().getStringExtra("reference")
-        val reminder = getIntent().getStringExtra("reminder")
+        val reference = intent.getStringExtra("reference")
+        val reminder = intent.getStringExtra("reminder")
 
         toolbar.title = reference
         setSupportActionBar(toolbar)

@@ -32,7 +32,7 @@ class DailyReminder: Runnable {
 
         client.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace();
+                e.printStackTrace()
             }
 
             override fun onResponse(call: Call, response: Response) {
@@ -46,7 +46,7 @@ class DailyReminder: Runnable {
                     notifyIntent.putExtra("reminder", reminder)
 
                     // Set the Activity to start in a new, empty task
-                    notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    notifyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
                     // Create the PendingIntent
                     val notifyPendingIntent = PendingIntent.getActivity(
