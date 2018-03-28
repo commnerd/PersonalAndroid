@@ -4,11 +4,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import net.michaeljmiller.utils.api.AuthenticationManager
 import com.google.android.gms.common.api.ApiException
 import android.support.v7.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
 import android.content.Intent
 import android.os.Bundle
+import org.json.JSONObject
 import java.util.*
 
 class AuthenticationActivity : AppCompatActivity() {
@@ -26,12 +28,13 @@ class AuthenticationActivity : AppCompatActivity() {
             override fun run() {
                 val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestEmail()
+                        .requestIdToken(getString(R.string.google_oauth_client_id))
                         .build()
                 mGoogleSignInClient = GoogleSignIn.getClient(currentActivity, gso);
                 val signInIntent = mGoogleSignInClient!!.getSignInIntent()
                 startActivityForResult(signInIntent, RC_SIGN_IN)
             }
-        }, 3500)
+        }, 1)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -48,13 +51,26 @@ class AuthenticationActivity : AppCompatActivity() {
     fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) = try {
         val account = completedTask.getResult(ApiException::class.java)
         if(account.email.toString() == "commnerd@gmail.com" || account.email.toString() == "waterchica@gmail.com") {
-            val mainActivityIntent = Intent(currentActivity, MainActivity::class.java)
-            currentActivity.runOnUiThread({ startActivity(mainActivityIntent) })
+            val json = AuthenticationManager.login(account.idToken.toString());
+            forwardToMainActivity(json)
         }
         else {
-            currentActivity.runOnUiThread({ onBackPressed() })
+            exitApp()
         }
     } catch (e: ApiException) {
-        currentActivity.runOnUiThread({ onBackPressed() })
+        exitApp()
+    }
+
+    private fun forwardToMainActivity(json: JSONObject?) {
+        val mainActivityIntent = Intent(currentActivity, MainActivity::class.java)
+        for(key in json!!.keys()) {
+            mainActivityIntent.putExtra(key, json.get(key).toString());
+        }
+        currentActivity.runOnUiThread({ startActivity(mainActivityIntent) })
+        currentActivity.finish()
+    }
+
+    private fun exitApp() {
+        currentActivity.runOnUiThread({ currentActivity.finish() })
     }
 }

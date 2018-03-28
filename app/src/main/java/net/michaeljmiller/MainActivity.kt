@@ -11,36 +11,55 @@ import net.michaeljmiller.utils.DailyReminder
 
 class MainActivity : AppCompatActivity() {
 
+    private var listView: ListView? = null
+
+    private var token: String? = null;
+
+    private var adapter: ArrayAdapter<String>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val values = arrayOf(
+        var values = arrayOf(
                 "Reminder",
+                "User",
+                "Test Delete",
                 "Food"
-                // "Messages",
-                // "Resume"
         )
 
-        val listView = findViewById<ListView>(R.id.main_list_view)
+        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, values.toMutableList())
 
-        var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values)
+        listView = findViewById(R.id.main_list_view) as ListView
 
-        listView.adapter = adapter
-        listView.setOnItemClickListener {
-            _, view, _, _ -> navigate((view as TextView).text.toString())
+        token = intent.getStringExtra("token")
+
+        listView!!.adapter = adapter
+        listView!!.setOnItemClickListener {
+            _, view, position, _ -> navigate(position, view as TextView)
         }
     }
 
-    private fun navigate(dest: String) {
+    private fun navigate(position: Int, view: TextView) {
+        var dest = view.text.toString()
         when(dest) {
             "Reminder" -> DailyReminder(this).run()
-            "Food" -> startActivity(Intent(this, net.michaeljmiller.FoodActivity::class.java))
+            "User" -> showUser()
+            "Food" -> startActivity(Intent(this, FoodActivity::class.java))
+            "Test Delete" -> runTest(position)
         }
     }
 
-    override fun onBackPressed() {
-        moveTaskToBack(true)
-        finish()
+    private fun runTest(position: Int) {
+        val item = listView!!.getItemAtPosition(position)
+        adapter!!.remove(item.toString())
+        listView!!.invalidateViews();
+    }
+
+    private fun showUser() {
+        val dailyReminderIntent = Intent(this, DailyReminderActivity::class.java)
+        dailyReminderIntent.putExtra("reference", intent.getStringExtra("email"))
+        dailyReminderIntent.putExtra("reminder", intent.getStringExtra("token"))
+        startActivity(dailyReminderIntent)
     }
 }
