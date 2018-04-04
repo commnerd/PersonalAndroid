@@ -1,11 +1,13 @@
 package net.michaeljmiller
 
+import android.app.ListActivity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+import net.michaeljmiller.models.food.Restaurant
 import net.michaeljmiller.utils.DailyReminder
 
 
@@ -24,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         var values = arrayOf(
                 "Reminder",
                 "User",
-                "Test Delete",
                 "Food"
         )
 
@@ -44,16 +45,8 @@ class MainActivity : AppCompatActivity() {
         var dest = view.text.toString()
         when(dest) {
             "Reminder" -> DailyReminder(this).run()
-            "User" -> showUser()
-            "Food" -> startActivity(Intent(this, FoodActivity::class.java))
-            "Test Delete" -> runTest(position)
+            "Food" -> startActivity(Intent(this, ListActivity::class.java))
         }
-    }
-
-    private fun runTest(position: Int) {
-        val item = listView!!.getItemAtPosition(position)
-        adapter!!.remove(item.toString())
-        listView!!.invalidateViews();
     }
 
     private fun showUser() {

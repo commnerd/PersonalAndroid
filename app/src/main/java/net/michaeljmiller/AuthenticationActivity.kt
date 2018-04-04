@@ -2,19 +2,20 @@ package net.michaeljmiller
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import net.michaeljmiller.bundles.api.utils.AuthenticationManager
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import net.michaeljmiller.utils.api.AuthenticationManager
 import com.google.android.gms.common.api.ApiException
+import net.michaeljmiller.bundles.api.ApiActivity
 import android.support.v7.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
 import android.content.Intent
-import android.os.Bundle
 import org.json.JSONObject
+import android.os.Bundle
+import android.util.Log
 import java.util.*
 
-class AuthenticationActivity : AppCompatActivity() {
-
+class AuthenticationActivity<ApiClient> : ApiActivity() {
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private val RC_SIGN_IN: Int = 9001
     private val currentActivity: AppCompatActivity = this;
@@ -51,8 +52,7 @@ class AuthenticationActivity : AppCompatActivity() {
     fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) = try {
         val account = completedTask.getResult(ApiException::class.java)
         if(account.email.toString() == "commnerd@gmail.com" || account.email.toString() == "waterchica@gmail.com") {
-            val json = AuthenticationManager.login(account.idToken.toString());
-            forwardToMainActivity(json)
+            AuthenticationManager.login(this, account.idToken.toString());
         }
         else {
             exitApp()
@@ -61,16 +61,12 @@ class AuthenticationActivity : AppCompatActivity() {
         exitApp()
     }
 
-    private fun forwardToMainActivity(json: JSONObject?) {
-        val mainActivityIntent = Intent(currentActivity, MainActivity::class.java)
-        for(key in json!!.keys()) {
-            mainActivityIntent.putExtra(key, json.get(key).toString());
-        }
-        currentActivity.runOnUiThread({ startActivity(mainActivityIntent) })
-        currentActivity.finish()
+    override fun handleResult(result: JSONObject) {
+        Log.e("BLAH BLAH BLAH", "EXECUTING!!!")
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun exitApp() {
-        currentActivity.runOnUiThread({ currentActivity.finish() })
+        this.runOnUiThread({ this.finish() })
     }
 }

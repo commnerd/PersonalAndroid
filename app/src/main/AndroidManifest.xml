@@ -20,11 +20,11 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".FoodActivity"
             android:label="@string/title_activity_food"
@@ -52,6 +52,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".events.DailyReminderBroadcastReceiver" />
+
         <activity
             android:name=".DailyReminderActivity"
             android:excludeFromRecents="true"
@@ -59,6 +60,14 @@
             android:launchMode="singleTask"
             android:taskAffinity=""
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".bundles.api.ListActivity"
+            android:label="@string/title_activity_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".bundles.api.ShowActivity"
+            android:label="@string/title_activity_show"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
