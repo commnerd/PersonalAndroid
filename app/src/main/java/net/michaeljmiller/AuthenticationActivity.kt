@@ -12,7 +12,6 @@ import com.google.android.gms.tasks.Task
 import android.content.Intent
 import org.json.JSONObject
 import android.os.Bundle
-import android.util.Log
 import java.util.*
 
 class AuthenticationActivity<ApiClient> : ApiActivity() {
@@ -52,21 +51,20 @@ class AuthenticationActivity<ApiClient> : ApiActivity() {
     fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) = try {
         val account = completedTask.getResult(ApiException::class.java)
         if(account.email.toString() == "commnerd@gmail.com" || account.email.toString() == "waterchica@gmail.com") {
-            AuthenticationManager.login(this, account.idToken.toString());
+            AuthenticationManager(this, null).login(account.idToken.toString())
         }
         else {
-            exitApp()
+            exitApp(null)
         }
     } catch (e: ApiException) {
-        exitApp()
+        exitApp(e)
     }
 
     override fun handleResult(result: JSONObject) {
-        Log.e("BLAH BLAH BLAH", "EXECUTING!!!")
         startActivity(Intent(this, MainActivity::class.java))
     }
 
-    private fun exitApp() {
+    private fun exitApp(e: ApiException?) {
         this.runOnUiThread({ this.finish() })
     }
 }

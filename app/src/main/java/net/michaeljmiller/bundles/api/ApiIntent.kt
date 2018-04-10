@@ -5,7 +5,7 @@ import android.content.Intent
 
 class ApiIntent<T>(cont: Context): Intent(cont, ListActivity::class.java) {
 
-    inline fun <reified T: Any> inlineGetClassType(): Class<T> {
+    private inline fun <reified T: Any> inlineGetClassType(): Class<T> {
         return T::class.java
     }
 
