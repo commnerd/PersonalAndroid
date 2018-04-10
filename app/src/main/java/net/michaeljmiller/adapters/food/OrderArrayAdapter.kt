@@ -3,13 +3,8 @@ package net.michaeljmiller.adapters.food
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import net.michaeljmiller.models.food.Restaurant
+import net.michaeljmiller.bundles.api.models.food.Restaurant
 import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.graphics.Movie
-import android.view.LayoutInflater
-import android.widget.ImageView
-import net.michaeljmiller.R
 
 
 /**

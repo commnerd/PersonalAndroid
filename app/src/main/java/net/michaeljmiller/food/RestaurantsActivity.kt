@@ -9,7 +9,7 @@ import android.widget.*
 
 import kotlinx.android.synthetic.main.activity_food_restaurants.*
 import net.michaeljmiller.adapters.food.RestaurantArrayAdapter
-import net.michaeljmiller.models.food.Restaurant
+import net.michaeljmiller.bundles.api.models.food.Restaurant
 
 class RestaurantsActivity : AppCompatActivity() {
 

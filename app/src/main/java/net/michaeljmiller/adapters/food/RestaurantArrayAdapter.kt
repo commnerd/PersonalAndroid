@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import net.michaeljmiller.R
-import net.michaeljmiller.models.food.Restaurant
+import net.michaeljmiller.bundles.api.models.food.Restaurant
 
 /**
  * Created by commnerd on 3/13/18.
