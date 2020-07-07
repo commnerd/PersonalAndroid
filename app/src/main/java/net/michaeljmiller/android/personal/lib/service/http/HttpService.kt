@@ -1,8 +1,8 @@
 package net.michaeljmiller.android.personal.lib.service.http
 
 import java.io.BufferedInputStream
-import java.io.InputStream
 import java.net.HttpURLConnection
+import java.io.InputStream
 import java.net.URL
 
 open class HttpService(val baseUrl : URL) {
