@@ -1,39 +1,25 @@
-package net.michaeljmiller.android.personal.lib.service
+package net.michaeljmiller.android.personal.lib.models
 
-import net.michaeljmiller.android.personal.lib.models.LaravelModel
-import org.json.JSONObject
 import java.text.SimpleDateFormat
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
+import androidx.room.Entity
+import org.json.JSONObject
 import java.util.*
 
-class DailyReminder(
-    private var reference : String,
-    private var reminder : String,
-    id : Int?,
-    created_at : Date?,
-    updated_at : Date?
-    ) : LaravelModel(id, created_at, updated_at) {
-
+@Entity(tableName = "daily_reminders")
+data class DailyReminder(
+    @ColumnInfo(name = "reference") val reference: String,
+    @ColumnInfo(name = "reminder") val reminder: String,
+    @PrimaryKey val id: Int?,
+    @ColumnInfo(name = "created_at") val created_at : Date?,
+    @ColumnInfo(name = "updated_at") val updated_at : Date?
+) {
     constructor(json : JSONObject) : this(
         json.getString("reference"),
         json.getString("reminder"),
         json.get("id") as Int?,
-        SimpleDateFormat(dateFormat, Locale.US).parse(json.getString("created_at")),
-        SimpleDateFormat(dateFormat, Locale.US).parse(json.getString("updated_at"))
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.US).parse(json.getString("created_at")),
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.US).parse(json.getString("updated_at"))
     )
-
-    fun getReference() : String {
-        return reference
-    }
-
-    fun getReminder() : String {
-        return reminder
-    }
-
-    fun setReference(reference : String) {
-        this.reference = reference
-    }
-
-    fun setReminder(reminder : String) {
-        this.reminder = reminder
-    }
 }

@@ -1,6 +1,6 @@
 package net.michaeljmiller.android.personal.lib.service.http
 
-import net.michaeljmiller.android.personal.lib.service.DailyReminder
+import net.michaeljmiller.android.personal.lib.models.DailyReminder
 import org.json.JSONObject
 import java.net.URL
 
