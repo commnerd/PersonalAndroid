@@ -1,4 +1,4 @@
-package net.michaeljmiller.android.personal.lib.local.storage.dao
+package net.michaeljmiller.android.personal.lib.storage.local.dao
 
 import net.michaeljmiller.android.personal.lib.models.DailyReminder
 import androidx.room.Insert

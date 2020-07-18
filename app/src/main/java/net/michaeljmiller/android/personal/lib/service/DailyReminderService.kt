@@ -1,25 +1,20 @@
 package net.michaeljmiller.android.personal.lib.service
 
-import net.michaeljmiller.android.personal.lib.service.http.PersonalWebService
-import net.michaeljmiller.android.personal.lib.local.storage.PersonalDatabase
-import net.michaeljmiller.android.personal.lib.models.DailyReminder
-import androidx.room.RoomDatabase
+import net.michaeljmiller.android.personal.lib.storage.remote.http.PersonalWebService
+import net.michaeljmiller.android.personal.lib.storage.local.dao.ReminderDao
+import net.michaeljmiller.android.personal.lib.interfaces.Reminder
 import android.content.Context
-import androidx.room.Room
 
-class DailyReminderService(val context : Context) {
+class DailyReminderService(private val context : Context) {
 
-    fun get() : DailyReminder? {
-        val db = PersonalDatabase.getDatabase(context)
-        val reminder : DailyReminder?
+    fun get() : Reminder? {
+        var reminder : Reminder? = null
 
         if(NetworkService(context).wifiConnected()) {
             reminder = PersonalWebService().getDailyReminder()
-            db.dailyReminderDao().add(reminder)
-            return reminder
+            val dao = DailyReminderTriageService(context).dAOS[reminder.getClass()] as ReminderDao
+            dao.add(reminder)
         }
-
-            reminder = db.dailyReminderDao().random()
         return reminder
     }
 }

@@ -1,10 +1,9 @@
 package net.michaeljmiller.android.personal.lib.service
 
-import android.content.Context
 import android.net.ConnectivityManager
+import android.content.Context
 
-
-class NetworkService(val context : Context) {
+class NetworkService(private val context : Context) {
     fun wifiConnected() : Boolean {
         val connManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?

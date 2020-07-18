@@ -1,11 +1,11 @@
 package net.michaeljmiller.android.personal
 
 import net.michaeljmiller.android.personal.lib.service.DailyReminderService
+import net.michaeljmiller.android.personal.lib.interfaces.Reminder
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import android.os.StrictMode
 import android.os.Bundle
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,14 +27,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindReminderToView() {
-        val textViewReference = findViewById(R.id.reference) as TextView
-        val textViewReminder = findViewById(R.id.reminder) as TextView
+        val textViewReference = findViewById<TextView>(R.id.reference)
+        val textViewReminder = findViewById<TextView>(R.id.reminder)
 
-        val reminder = DailyReminderService(applicationContext).get()
+        val reminder = DailyReminderService(applicationContext).get() as Reminder
 
-        if (reminder != null) {
-            textViewReference.text = reminder.reference
-            textViewReminder.text = reminder.reminder
-        }
+        textViewReference.text = reminder.getReference()
+        textViewReminder.text = reminder.getReminder()
     }
 }

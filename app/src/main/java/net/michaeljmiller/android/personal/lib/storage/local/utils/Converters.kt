@@ -1,4 +1,4 @@
-package net.michaeljmiller.android.personal.lib.local.storage.utils
+package net.michaeljmiller.android.personal.lib.storage.local.utils
 
 import androidx.room.TypeConverter
 import java.util.*
