@@ -14,7 +14,6 @@ data class Quote(
     @ColumnInfo(name = "created_at") val created_at : Date?,
     @ColumnInfo(name = "updated_at") val updated_at : Date?
 ): Reminder {
-
     override fun getId(): Int? {
         return id
     }

@@ -5,15 +5,16 @@ import net.michaeljmiller.android.personal.lib.models.Quote
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Dao
+import net.michaeljmiller.android.personal.lib.interfaces.Reminder
 
 @Dao
-interface QuoteDao {
+interface QuoteDao : ReminderDao<Quote> {
     @Query("SELECT * FROM quotes")
     fun list(): List<DailyReminder>
 
     @Query("SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1")
-    fun random(): DailyReminder
+    override fun random(): Quote
 
     @Insert
-    fun add(vararg quote : Quote)
+    override fun add(vararg quote : Quote)
 }

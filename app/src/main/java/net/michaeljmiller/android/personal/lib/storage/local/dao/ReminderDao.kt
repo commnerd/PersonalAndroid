@@ -1,8 +1,10 @@
 package net.michaeljmiller.android.personal.lib.storage.local.dao
 
 import net.michaeljmiller.android.personal.lib.interfaces.Reminder
+import androidx.room.Dao
 
-interface ReminderDao {
-
-    fun add(vararg reminders : Reminder)
+@Dao
+interface ReminderDao<T> {
+    fun random(): T
+    fun add(vararg reminders : T)
 }
