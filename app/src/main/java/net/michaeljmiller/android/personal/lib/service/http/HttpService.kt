@@ -5,13 +5,12 @@ import java.net.HttpURLConnection
 import java.io.InputStream
 import java.net.URL
 
-open class HttpService(val baseUrl : URL) {
+open class HttpService<T> {
 
-    constructor(baseUrl : String) : this(URL(baseUrl))
-
-    fun get() : String {
+    fun query(endpoint: Endpoint<T>) : String {
         val urlConnection =
-            baseUrl.openConnection() as HttpURLConnection
+            endpoint.url().openConnection() as HttpURLConnection
+
         try {
             val inStream: InputStream = BufferedInputStream(urlConnection.inputStream)
             val retVal = readStream(inStream as BufferedInputStream)
@@ -21,7 +20,7 @@ open class HttpService(val baseUrl : URL) {
         }
     }
 
-    fun readStream(inStream : BufferedInputStream) : String {
+    private fun readStream(inStream : BufferedInputStream) : String {
         val contents = ByteArray(1024)
 
         var bytesRead = 0
