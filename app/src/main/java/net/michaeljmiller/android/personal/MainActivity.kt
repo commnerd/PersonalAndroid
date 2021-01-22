@@ -6,12 +6,10 @@ import android.widget.TextView
 import android.os.StrictMode
 import android.os.Bundle
 
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        System.out.println("HI")
         setupThreadPolicy()
         setupView()
     }

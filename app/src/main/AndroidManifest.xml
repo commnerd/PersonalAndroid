@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme"
         android:allowBackup="false"
         android:usesCleartextTraffic="true">
+        <receiver android:name=".lib.service.schedule.DailyReminderScheduleReceiver" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
